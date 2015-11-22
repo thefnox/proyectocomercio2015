@@ -12,36 +12,39 @@ module.exports = {
         rest: false
     },
 
-    soapStatus: function(req, res){
-        SOAPService.getStatus(function(str){
+    bdStatus: function(req, res){
+        BDService.getStatus(function(str){
             res.setHeader( "Content-type", "text/xml" );
             res.send(str);
         });
     },
 
-    uddiStatus: function(req, res){
-        UDDIService.getStatus(function(str){
+    appStatus: function(req, res){
+        APPService.getStatus(function(str){
             res.setHeader( "Content-type", "text/xml" );
             res.send(str);
         });
     },
 
-    wsdlStatus: function(req, res){
-        WSDLService.getStatus(function(str){
+    hardwareStatus: function(req, res){
+        HARDWAREService.getStatus(function(str){
             res.setHeader( "Content-type", "text/xml" );
             res.send(str);
         });
     },
 
-    xmlStatus: function(req, res){
-        XMLService.getStatus(function(str){
+    enlaceStatus: function(req, res){
+        ENLACEService.getStatus(function(str){
             res.setHeader( "Content-type", "text/xml" );
             res.send(str);
         });
     },
 
-    available: function(req, res){
-
-    }
+    routerStatus: function(req, res){
+        ROUTERService.getStatus(function(str){
+            res.setHeader( "Content-type", "text/xml" );
+            res.send(str);
+        });
+    },
 
 };
