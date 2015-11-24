@@ -15,6 +15,7 @@ var res = 1;
 var i = 0;
 
 function consultarGlob(){
+  res = 1;
 	i = 0;
 	ajax("bdStatus");
 	ajax("appStatus");
