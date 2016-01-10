@@ -1,24 +1,22 @@
 <?php
-include_once 'lib/nusoap.php';
+	include_once 'lib/nusoap.php';
 
-$servicio = new soap_server();
+	$servicio = new soap_server();
 
+	//ns es name space
+	$ns = "urn:APPService";
+	$servicio->configureWSDL("APPService", $ns);
+	$servicio->schemaTargetNamespace = $ns;
 
-//ns es name space
-$ns = "urn:APPService";
-$servicio->configureWSDL("APPService", $ns);
-$servicio->schemaTargetNamespace = $ns;
+	$servicio->register("Disponibilidad", array('name' => 'xsd:string', 'fecha' => 'xsd:string'), array('name' => 'xsd:string', 'disp' => 'xsd:float'), $ns);
 
-$servicio->register("Disponibilidad", array('name' => 'xsd:string', 'fecha' => 'xsd:string'), array('name' => 'xsd:string', 'disp' => 'xsd:float'), $ns);
+	function Disponibilidad($name, $fecha){
 
-function Disponibilidad($name, $fecha){
+		$disp = rand(0,1000)/1000;
 
-	$disp = rand(0,1000)/1000;
+		return array($name, $disp);
+	} 	
 
-	return array($name, $disp);
-} 	
-
-$HTTP_RAW_POST_DATA = isset($HTTP_RAW_POST_DATA) ? $HTTP_RAW_POST_DATA :'';
-$servicio->service($HTTP_RAW_POST_DATA);
-
+	$HTTP_RAW_POST_DATA = isset($HTTP_RAW_POST_DATA) ? $HTTP_RAW_POST_DATA :'';
+	$servicio->service($HTTP_RAW_POST_DATA);
 ?>

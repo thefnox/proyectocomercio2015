@@ -12,7 +12,7 @@
 	$rout = ROUTERStatus('ROUTERService',$fecha);
 
 	function BDStatus($name,$fecha){
-		$cemon = new nusoap_client('http://www.comeryljs.esy.es/enlaceInternet.php#', false);
+		$cemon = new nusoap_client('http://www.comerylj.esy.es/enlaceInternet.php#', false);
 		$req = array('name' => $name, 'fecha' => $fecha);
 		$res = $cemon->call('CalcularDisponibilidad', $req);
 		$cemon = null;
@@ -21,9 +21,20 @@
 		//echo '<br>';
 		return $res;
 	}
+/*
+	function APPStatus($name,$fecha){
+		$cemon = new nusoap_client('http://ecomerce.pe.hu/servicio_saplicacion.php#', false);
+		$req = array('name' => $name, 'fecha' => $fecha);
+		$res = $cemon->call('disponibilidad_aplicacion', array('datos' => $req));
+		$cemon = null;
+
+		//echo $res['componente'].': '.$res['probabilidad'];
+		//echo '<br>';
+		return $res;
+	}*/
 
 	function APPStatus($name,$fecha){
-		$cemon = new nusoap_client('http://ecomerce.pe.hu/servicio_apliscacion.php#', false);
+		$cemon = new nusoap_client('http://peaceful-brushlands-9993.herokuapp.com/comercio?componente=aplicacion&fecha=24-marzo', false);
 		$req = array('name' => $name, 'fecha' => $fecha);
 		$res = $cemon->call('disponibilidad_aplicacion', array('datos' => $req));
 		$cemon = null;
