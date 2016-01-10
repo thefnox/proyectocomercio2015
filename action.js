@@ -14,7 +14,7 @@ function consultar(){
 	document.getElementById("resultado").textContent = "Cargando... Espere un momento por favor";
 
 	var xhttp = new XMLHttpRequest();
-	xhttp.open("GET","http://www.alstelecom.com/Prueba_Johan/CEMON.php?mes="+mes+"&ano="+ano, true);
+	xhttp.open("GET","https://proyectocomercio2015-fnox.c9users.io/CEMON.php?mes="+mes+"&ano="+ano, true);
   	xhttp.send();
 
 	xhttp.onreadystatechange = function() {
