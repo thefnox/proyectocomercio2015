@@ -36,33 +36,41 @@
 		<div align="center">
 			<div class="contenedor">
 				<br>
-				<h2>Ingrese el periodo a consultar:</h2>
+				<h2>BOTON DE PAGO</h2>
 				<br>
 				
-				<label>Mes: </label>
-				<select id="mes">
-				  	<option value="1">1</option>
-				  	<option value="2">2</option>
-				  	<option value="3">3</option>
-				  	<option value="4">4</option>
-				  	<option value="5">5</option>
-				  	<option value="6">6</option>
-				  	<option value="7">7</option>
-				  	<option value="8">8</option>
-				  	<option value="9">9</option>
-				  	<option value="10">10</option>
-				  	<option value="11">11</option>
-				  	<option value="12">12</option>
-				</select>
-				&nbsp;&nbsp;&nbsp;&nbsp;
-				<label>Año: </label>
-				<input id="ano" type="text">
+				<label>N* TDC</label>
+				&nbsp;
+				<input id="N_TDC" type="text">
+				<br><br>
+				
+				<label>COD SEG</label>
+				&nbsp;
+				<input id="COD_SEG" type="number"/>
+				<br><br>
+				
+				<label>Fecha EXP</label>
+				&nbsp;
+				<input type="date" id="FECHA_EXP" name="fecha de vencimiento"/>
+				<br><br>
+				
+				<label>MONTO</label>
+				&nbsp;
+				<input id="MONTO" type="number"/>
+				<br><br>
+				
+				<label>CI</label>
+				&nbsp;
+				<input id="CI" type="text"/>
+				<br><br>
 				
 				<br><br>
-				<button onclick="consultar()">Consultar</button>
+				<button onclick="consultar()">PAGAR</button>
 				<br><br>
 				<label>Resultado: </label>
 				<p id="resultado"></p>
+				
+				
 				<br>
 				<br>
 			</div>
