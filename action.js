@@ -8,20 +8,21 @@
 */
 
 function consultar(){
-	var mes = document.getElementById("mes").value;
-	var ano = document.getElementById("ano").value;
-
+	var N_TDC = document.getElementById("N_TDC").value;
+	var COD_SEG = document.getElementById("COD_SEG").value;
+	var FECHA_EXP = document.getElementById("FECHA_EXP").value;
+	var MONTO = document.getElementById("MONTO").value;
+	var CI = document.getElementById("CI").value;
+	
 	document.getElementById("resultado").textContent = "Cargando... Espere un momento por favor";
 
 	var xhttp = new XMLHttpRequest();
-	xhttp.open("GET","https://proyectocomercio2015-fnox.c9users.io/CEMON.php?mes="+mes+"&ano="+ano, true);
+	xhttp.open("GET","https://proyectocomercio2015-fnox.c9users.io/CEMON.php?N_TDC="+N_TDC+"&COD_SEG="+COD_SEG+"&FECHA_EXP="+FECHA_EXP+"&MONTO="+MONTO+"&CI="+CI, true);
   	xhttp.send();
 
 	xhttp.onreadystatechange = function() {
 	    if (xhttp.readyState == 4 && xhttp.status == 200) {
-	    	var datos = xhttp.responseText.split("-");
-	    	if(datos[1] == "1")	document.getElementById("resultado").innerHTML = datos[0] + "<br>"+ datos[2];
-	    	else document.getElementById("resultado").innerHTML = datos[2];
+	    	document.getElementById("resultado").innerHTML = xhttp.responseText;
 	    }
   	};
 }

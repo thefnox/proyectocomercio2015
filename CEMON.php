@@ -2,116 +2,42 @@
 	header('Access-Control-Allow-Origin: *');
 	
 	include_once 'lib/nusoap.php';
-
-	$fecha = $_GET['mes'].'/'.$_GET['ano'];
-
-	$bd = BDStatus('Enlace Internet',$fecha);
-	$app = APPStatus('aplicacion',$fecha);
-	$enl = ENLACEStatus('ENLACEService',$fecha);
-	$hard = HARDWAREStatus('HARDWAREService',$fecha);
-	$rout = ROUTERStatus('ROUTERService',$fecha);
-
-	function BDStatus($name,$fecha){
-		$cemon = new nusoap_client('http://www.comerylj.esy.es/enlaceInternet.php#', false);
-		$req = array('name' => $name, 'fecha' => $fecha);
-		$res = $cemon->call('CalcularDisponibilidad', $req);
-		$cemon = null;
-
-		//echo $res['nombreComponente'].': '.$res['disponibilidad'];
-		//echo '<br>';
-		return $res;
-	}
-/*
-	function APPStatus($name,$fecha){
-		$cemon = new nusoap_client('http://ecomerce.pe.hu/servicio_saplicacion.php#', false);
-		$req = array('name' => $name, 'fecha' => $fecha);
-		$res = $cemon->call('disponibilidad_aplicacion', array('datos' => $req));
-		$cemon = null;
-
-		//echo $res['componente'].': '.$res['probabilidad'];
-		//echo '<br>';
-		return $res;
-	}*/
-
-	function APPStatus($name,$fecha){
-		$cemon = new nusoap_client('http://peaceful-brushlands-9993.herokuapp.com/comercio?componente=aplicacion&fecha=24-marzo', false);
-		$req = array('name' => $name, 'fecha' => $fecha);
-		$res = $cemon->call('disponibilidad_aplicacion', array('datos' => $req));
-		$cemon = null;
-
-		//echo $res['componente'].': '.$res['probabilidad'];
-		//echo '<br>';
-		return $res;
-	}
-
-	function ENLACEStatus($name,$fecha){
-		$cemon = new nusoap_client('http://alstelecom.com/Prueba_Johan/ENLACEService.php#', false);
-		$req = array('name' => $name, 'fecha' => $fecha);
-		$res =  $cemon->call('Disponibilidad', $req);
-		$cemon = null;
-
-		//echo $res['name'].': '.$res['disp'];
-		//echo '<br>';
-		return $res;
-	}
-
-	function HARDWAREStatus($name,$fecha){
-		$cemon = new nusoap_client('http://alstelecom.com/Prueba_Johan/HARDWAREService.php#', false);
-		$req = array('name' => $name, 'fecha' => $fecha);
-		$res =  $cemon->call('Disponibilidad', $req);
-		$cemon = null;
-
-		//echo $res['name'].': '.$res['disp'];
-		//echo '<br>';
-		return $res;
-	}
-
-	function ROUTERStatus($name,$fecha){
-		$cemon = new nusoap_client('http://alstelecom.com/Prueba_Johan/ROUTERService.php#', false);
-		$req = array('name' => $name, 'fecha' => $fecha);
-		$res =  $cemon->call('Disponibilidad', $req);
-		$cemon = null;
-
-		//echo $res['name'].': '.$res['disp'];
-		//echo '<br>';
-		return $res;
-	}
-
-	if($bd == null or $bd == "") $bool_bd = false ;
-	else $bool_bd = true;
-
-	if($app == null or $app == "") $bool_app = false ;
-	else $bool_app = true;
+	//include_once 'PAGO.php';
 	
-	if($enl == null or $enl == "") $bool_enl = false ;
-	else $bool_enl = true;
-
-	if($hard == null or $hard == "") $bool_hard = false ;
-	else $bool_hard = true;
-
-	if($rout == null or $rout == "") $bool_rout = false ;
-	else $bool_rout = true;
-
-	$result = 1.00;
-	$check = '0';
-
-	echo 'Se excluyen: <br>';
-	if($bool_bd) $result = $result * floatval($bd['disponibilidad']);
-	else{ echo 'Base de Datos<br>'; $check = '1'; }
-
-	if($bool_app) $result = $result * floatval($app['probabilidad']);
-	else{ echo 'Aplicacion<br>'; $check = '1'; }
+	$N_TDC = $_GET['N_TDC'];
+	$COD_SEG = $_GET['COD_SEG'];
+	$FECHA_EXP = $_GET['FECHA_EXP'];
+	$MONTO = $_GET['MONTO'];
+	$CI = $_GET['CI'];
+	$COD_TIENDA = "232";
 	
-	if($bool_enl) $result = $result * floatval($enl['disp']);
-	else{ echo 'Enlace<br>'; $check = '1'; }
+	$PAGO = PAGO($N_TDC, $COD_SEG, $FECHA_EXP, $MONTO, $CI, $COD_TIENDA);
 
-	if($bool_hard) $result = $result * floatval($hard['disp']);
-	else{ echo 'Hardware<br>'; $check = '1'; }
-
-	if($bool_rout) $result = $result * floatval($rout['disp']);
-	else{ echo 'Router<br>'; $check = '1'; }
-	echo '-';
-	echo $check;
-	echo '-';
-	echo $result;
+	function PAGO($N_TDC, $COD_SEG, $FECHA_EXP, $MONTO, $CI, $COD_TIENDA){
+		//$cemon = new nusoap_client('https://proyectocomercio2015-fnox.c9users.io/BANCO3_debitar.php?wsdl', false);
+		$cemon = new nusoap_client('https://proyectocomercio2015-fnox.c9users.io/PAGOService.php', false);
+		$req = array('N_TDC' => $N_TDC, 'COD_SEG' => $COD_SEG, 'FECHA_EXP' => $FECHA_EXP, 'MONTO' => $MONTO, 'CI' => $CI, 'COD_TIENDA' => $COD_TIENDA);
+		$res = $cemon->call('PAGO', $req);
+		$cemon = null;
+		
+		return $res;
+	}
+	
+	//echo '<'.$PAGO['COD_OPERACION'].'>';
+	
+	if($PAGO['COD_OPERACION'] == "00"){
+		echo 'ACEPTADO';
+	}else{
+		if($PAGO['COD_OPERACION'] == "01") echo 'SALDO INSUFICIENTE';
+		else{
+			if($PAGO['COD_OPERACION'] == "10") echo 'DATOS INVALIDOS';
+			else{
+				if($PAGO['COD_OPERACION'] == "99") echo 'SIN CONEXION';
+				else{
+					if($PAGO['COD_OPERACION'] == "11") echo 'TARJETA VENCIDA';
+					else echo 'NEGADA';
+				}
+			}
+		}
+	}
 ?>
