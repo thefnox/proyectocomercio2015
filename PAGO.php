@@ -7,7 +7,6 @@
 	$FECHA_EXP = $_GET['FECHA_EXP'];
 	$MONTO = $_GET['MONTO'];
 	$CI = $_GET['CI'];
-	$COD_TIENDA = "232";
 	
 	function actualizar_saldo($conexion,$N_TDC,$new_saldo){
 		return mysql_query("UPDATE TARJETA SET SALDO = '".$new_saldo."' WHERE N_TDC = '".$N_TDC."'",$conexion);
@@ -27,6 +26,11 @@
 	}
 	
 	function debitar($conexion, $N_TDC, $COD_SEG, $FECHA_EXP, $MONTO, $CI, $COD_TIENDA){
+		
+		
+		$FECHA = explode("/", $FECHA_EXP);
+		
+		$FECHA_EXP = $FECHA[1]."-".$FECHA[0]."-01";
 		
         $consulta = mysql_query("SELECT * FROM TARJETA WHERE N_TDC='".$N_TDC."' AND FECHA_EXP='".$FECHA_EXP."' AND COD_SEG='".$COD_SEG."' AND CI='".$CI."'", $conexion);
 		$registro = mysql_fetch_array($consulta);
@@ -64,41 +68,47 @@
         	
 			$Banco = $N_TDC[1].$N_TDC[2].$N_TDC[3];
 			$cod = "100";
+			
+			
 			switch ($Banco) {
 			    case "000":
-					$link = "http://ecommerce.emgdesign.com.ve/banco/server.php?wsdl";
-			        $req = array('nro_tarjeta' => $N_TDC, 'cod_seg' => $COD_SEG, 'fecha_exp' => $FECHA_EXP, 'monto' => $MONTO, 'ci' => $CI, 'nro_afiliado' => $COD_TIENDA);
+					$link = "http://ecommerce.emgdesign.com.ve/banco/cliente2.php";
+			        $req = array('monto' => $MONTO, 'cod_comercio' => $COD_TIENDA, 'tipo_tarjeta' => $N_TDC[0], 'num_tarjeta' => $N_TDC, 'fecha_venc' => $FECHA_EXP, 'cod_seguridad' => $COD_SEG, 'ci_titular' => $CI);
 				break;
 			    case "111":
-					$link = "www.google.com";
-			        $req = array('N_TDC' => $N_TDC, 'COD_SEG' => $COD_SEG, 'FECHA_EXP' => $FECHA_EXP, 'MONTO' => $MONTO, 'CI' => $CI, 'COD_TIENDA' => $COD_TIENDA);
+					$link = "WWW.google.com";
+			        $req = array('monto' => $MONTO, 'cod_comercio' => $COD_TIENDA, 'tipo_tarjeta' => $N_TDC[0], 'num_tarjeta' => $N_TDC, 'fecha_venc' => $FECHA_EXP, 'cod_seguridad' => $COD_SEG, 'ci_titular' => $CI);
 				break;
 			    case "222":
-					$link = "www.google.com";
-			        $req = array('N_TDC' => $N_TDC, 'COD_SEG' => $COD_SEG, 'FECHA_EXP' => $FECHA_EXP, 'MONTO' => $MONTO, 'CI' => $CI, 'COD_TIENDA' => $COD_TIENDA);
+			    	$COD_TIENDA = "1";
+					$link = "http://proyectocomercio.byethost4.com/proyecto_comercio/banco.php";
+			        $req = array('monto' => $MONTO, 'cod_comercio' => $COD_TIENDA, 'tipo_tarjeta' => $N_TDC[0], 'num_tarjeta' => $N_TDC, 'fecha_venc' => $FECHA_EXP, 'cod_seguridad' => $COD_SEG, 'ci_titular' => $CI);
 				break;
 			    case "333":
+			    	$COD_TIENDA = "232";
 			    	$cod = "22";
 				break;
 			    case "444":
-					$link = "www.google.com";
-			        $req = array('N_TDC' => $N_TDC, 'COD_SEG' => $COD_SEG, 'FECHA_EXP' => $FECHA_EXP, 'MONTO' => $MONTO, 'CI' => $CI, 'COD_TIENDA' => $COD_TIENDA);
+			    	$COD_TIENDA = "1010";
+					$link = "https://make-payment.herokuapp.com/payment.php";
+			        $req = array('monto' => $MONTO, 'cod_comercio' => $COD_TIENDA, 'tipo_tarjeta' => $N_TDC[0], 'num_tarjeta' => $N_TDC, 'fecha_venc' => $FECHA_EXP, 'cod_seguridad' => $COD_SEG, 'ci_titular' => $CI);
 				break;
 			    case "555":
 					$link = "www.google.com";
-			        $req = array('N_TDC' => $N_TDC, 'COD_SEG' => $COD_SEG, 'FECHA_EXP' => $FECHA_EXP, 'MONTO' => $MONTO, 'CI' => $CI, 'COD_TIENDA' => $COD_TIENDA);
+			        $req = array('monto' => $MONTO, 'cod_comercio' => $COD_TIENDA, 'tipo_tarjeta' => $N_TDC[0], 'num_tarjeta' => $N_TDC, 'fecha_venc' => $FECHA_EXP, 'cod_seguridad' => $COD_SEG, 'ci_titular' => $CI);
 				break;
 			    case "666":
-					$link = "www.google.com";
-			        $req = array('N_TDC' => $N_TDC, 'COD_SEG' => $COD_SEG, 'FECHA_EXP' => $FECHA_EXP, 'MONTO' => $MONTO, 'CI' => $CI, 'COD_TIENDA' => $COD_TIENDA);
+					$link = "http:// comerciorew.j.facilcloud.com/WSComercioElectronico/WScomercioElectronico?wsdl";
+			        $req = array('monto' => $MONTO, 'cod_comercio' => $COD_TIENDA, 'tipo_tarjeta' => $N_TDC[0], 'num_tarjeta' => $N_TDC, 'fecha_venc' => $FECHA_EXP, 'cod_seguridad' => $COD_SEG, 'ci_titular' => $CI);
 				break;
 			    case "777":
 					$link = "www.google.com";
-			        $req = array('N_TDC' => $N_TDC, 'COD_SEG' => $COD_SEG, 'FECHA_EXP' => $FECHA_EXP, 'MONTO' => $MONTO, 'CI' => $CI, 'COD_TIENDA' => $COD_TIENDA);
+			       	$req = array('monto' => $MONTO, 'cod_comercio' => $COD_TIENDA, 'tipo_tarjeta' => $N_TDC[0], 'num_tarjeta' => $N_TDC, 'fecha_venc' => $FECHA_EXP, 'cod_seguridad' => $COD_SEG, 'ci_titular' => $CI);
 				break;
 			    case "888":
-					$link = "www.google.com";
-			        $req = array('N_TDC' => $N_TDC, 'COD_SEG' => $COD_SEG, 'FECHA_EXP' => $FECHA_EXP, 'MONTO' => $MONTO, 'CI' => $CI, 'COD_TIENDA' => $COD_TIENDA);
+			    	$COD_TIENDA = "232";
+					$link = "http://www.yljcomercio.esy.es/tarea2/banco_jefferson.php?wsdl";
+			        $req = array('monto' => $MONTO, 'cod_comercio' => $COD_TIENDA, 'tipo_tarjeta' => $N_TDC[0], 'num_tarjeta' => $N_TDC, 'fecha_venc' => $FECHA_EXP, 'cod_seguridad' => $COD_SEG, 'ci_titular' => $CI);
 				break;
 			    default:
 			    	$cod = "99";
@@ -107,10 +117,10 @@
 			
 			if($cod != "22" && $cod != "99"){ // si encontro un banco entra
 				$callb = new nusoap_client($link, false);
-				$codigo = $callb->call('PAGO', $req);
+				$codigo = $callb->call('pagar_al_banco', $req);
 				$callb = null;
 				
-				return $codigo['COD_OPERACION'];
+				return $codigo;
 			}else{
 				return $cod;
 			}
@@ -118,24 +128,22 @@
 
 	
 	
-	function hacerPago($N_TDC, $COD_SEG, $FECHA_EXP, $MONTO, $CI, $COD_TIENDA)
+	function hacerPago($MONTO, $COD_TIENDA, $N_TDC_T, $N_TDC, $FECHA_EXP, $COD_SEG, $CI)
 	{
 			
 		$COD_OPERACION = llamar_banco($N_TDC, $COD_SEG, $FECHA_EXP, $MONTO, $CI, $COD_TIENDA);
- 		
+		
 		$conexion = conectarse();
 		
 		if($COD_OPERACION == "22"){
 			$COD_OPERACION = debitar($conexion, $N_TDC, $COD_SEG, $FECHA_EXP, $MONTO, $CI, $COD_TIENDA);
+		
+			if($COD_OPERACION == "00" and $COD_TIENDA == "232") acreditar($conexion,$COD_TIENDA,$MONTO);
 		}
- 		
- 		if($COD_OPERACION == "00" and $COD_TIENDA == "232") acreditar($conexion,$COD_TIENDA,$MONTO);
  		
 		crear_transaccion($conexion,$N_TDC, $COD_OPERACION, $MONTO, $CI);
 		
-		return array('COD_OPERACION' => $COD_OPERACION, 'N_TRANS' => '10');
+		return $COD_OPERACION;
 	}
-
+////mysql-ctl cli
 ?>
-
-//mysql-ctl cli

@@ -1,79 +1,414 @@
-<!DOCTYPE html>
+<!DOCTYPE>
 <html>
+	
 	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta chartset="utf-8">
+		<meta name="viewport">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<script type="text/javascript" src="action.js"></script>
-		<title>CEMON</title>
+		<link rel="stylesheet" type="text/css" media="screen" href="css/style.css"/>
+		<link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.css" />
+
+		<script type="text/javascript" src="js/action_interfaz.js"></script>	
+		<script type="text/javascript" src="js/bootstrap.js"></script>
+		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery.slides.min.js"></script>
+
+		<title>Proyecto Comercio</title>
 	</head>
 
-	<style>
-		#bg{
-			position:fixed;
-		    top:0;
-		    left:0;
-		    margin: 0;
-		    padding: 0;
-    		z-index:-20;
-    		width: 100%;
-    		height: 100%;
-		}
+	<header class="navbar-fixed-top" style="height:60px;">
 
-		.contenedor{
-			background-color: #F1E6D2;
-			width: 50%;
-			height: 50%;
-			border-radius: 5px;
-		}
-	</style>
-
-	<body>
-		<img id="bg" src="http://www.liocreativo.com/wp-content/uploads/2014/03/fondo-11.jpg" alt="background" />
-		
-		<h1 style="text-align:center;">CEMON: Fernando, Fidel, Johan</h1>
-
-		<div align="center">
-			<div class="contenedor">
-				<br>
-				<h2>BOTON DE PAGO</h2>
-				<br>
-				
-				<label>N* TDC</label>
-				&nbsp;
-				<input id="N_TDC" type="text">
-				<br><br>
-				
-				<label>COD SEG</label>
-				&nbsp;
-				<input id="COD_SEG" type="number"/>
-				<br><br>
-				
-				<label>Fecha EXP</label>
-				&nbsp;
-				<input type="date" id="FECHA_EXP" name="fecha de vencimiento"/>
-				<br><br>
-				
-				<label>MONTO</label>
-				&nbsp;
-				<input id="MONTO" type="number"/>
-				<br><br>
-				
-				<label>CI</label>
-				&nbsp;
-				<input id="CI" type="text"/>
-				<br><br>
-				
-				<br><br>
-				<button onclick="consultar()">PAGAR</button>
-				<br><br>
-				<label>Resultado: </label>
-				<p id="resultado"></p>
-				
-				
-				<br>
-				<br>
+		<div class="main-menu-container">
+			<div class="container">
+				<div class="row">
+			 		<div class="collapse navbar-collapse">
+			 			<ul class="nav nav-pills navbar-nav pull-left menu-options fs-med ff-francois">
+			 				<li class="active"><a class="titulo-tag yellow" href="#" style="height:60px;padding-top:20px;">Inicio</a></li>
+			 			</ul>
+			 			<ul class="nav navbar-nav pull-right menu-options fs-med ff-francois">
+			 				<li><a href="#" data-toggle="modal" data-target="#carrito"><img src="css/img/carrito.png" width="30" height="30" style=""></a></li>
+			 			</ul>
+			 		</div>
+			 	</div>
 			</div>
 		</div>
+
+
+		<div class="modal fade" id="carrito" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+
+					<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+
+	                	<div class="row">
+	                		<div class="col-lg-12 col-sm-12 col-xs-12 col-md-12 pastie-head">
+	                			<button type="button" class="close" data-dismiss="modal" style="margin-top:5px;margin-right:-3px;"><span aria-hidden="true">&times;</span><span class="sr-only">Cancelar</span></button>
+	                			<p class="titulo-op" style="float:center;margin-top:5px;">PRODUCTOS</p>
+	                		</div>
+	                	</div>
+
+	                	<div id="carrito_zapatos" class="row" style="display:none;margin-top:2px;">
+	                		<div class="col-lg-12 col-sm-12 col-xs-12 col-md-12 pastie-body">
+		                		<img src="css/img/messi-blk-red-img12.jpg" width="200" height="150" style="float:left;margin-top:8px;margin-bottom:10px;">
+		                		<p style="float:left;margin-top:5px;margin-left:5px;">
+									ADIDAS MESSI 15.1 "BLACK/SOLAR GREEN/RED"<br>
+									Precio: 5.000 BsF.<br>
+								</p>
+								<button onclick="quitar('zapatos')" style="float:right;margin-top:10px;">Quitar</button>
+		                	</div>
+		                </div>
+		                
+		                <div id="carrito_audifonos" class="row" style="display:none;margin-top:2px;">
+	                		<div class="col-lg-12 col-sm-12 col-xs-12 col-md-12 pastie-body">
+		                		<img src="css/img/beats-e1399854433609.png" width="200" height="150" style="float:left;margin-top:8px;margin-bottom:10px;">
+		                		<p style="float:left;margin-top:5px;margin-left:5px;">
+									AUDIFONOS BEATS ROJO<br>
+									Precio: 2.000 BsF.<br>
+								</p>
+								<button onclick="quitar('audifonos')" style="float:right;margin-top:10px;">Quitar</button>
+		                	</div>
+		                </div>
+		                
+		                <div id="carrito_camiseta" class="row" style="display:none;margin-top:2px;">
+	                		<div class="col-lg-12 col-sm-12 col-xs-12 col-md-12 pastie-body">
+		                		<img src="css/img/6fa5b3a493e44320b9932d807e9ddae5.jpg" width="200" height="150" style="float:left;margin-top:8px;margin-bottom:10px;">
+		                		<p style="float:left;margin-top:5px;margin-left:5px;">
+									CAMISETA FVF VINOTINTO<br>
+									Precio: 1.000 BsF.<br>
+								</p>
+								<button onclick="quitar('camiseta')" style="float:right;margin-top:10px;">Quitar</button>
+		                	</div>
+		                </div>
+
+	            		<div class="row">
+	            			<div class="col-lg-12 col-sm-12 col-xs-12 col-md-12 pastie-footer">
+	            				<h2 style="float:left;">Total: &nbsp;</h2>
+	            				<h2 id="monto_total" style="float:left;">0</h2>
+	            				<button onclick="pasarMonto(2,'todo')" style="float:right;margin-top:20px;">Comprar</button>
+	            			</div>
+	            		</div>
+	            	</div>
+				
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal-PASTIE -->
+		<div class="modal fade" id="pastie_zapatos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+
+					<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+
+	                	<div class="row">
+	                		<div class="col-lg-12 col-sm-12 col-xs-12 col-md-12 pastie-head">
+	                			<button type="button" class="close" data-dismiss="modal" style="margin-top:5px;margin-right:-3px;"><span aria-hidden="true">&times;</span><span class="sr-only">Cancelar</span></button>
+	                			
+	                			<a href="#" onclick="agregar('zapatos')"><img src="css/img/carrito.png" width="30" height="30" style="float:left;margin-bottom:5px;margin-top:5px;margin-left:10px;"></a>
+	                			
+								<div class="dropdown">
+						 			<a id="dLabel" href="#" role="button" data-toggle="dropdown" class="dropdown-toggle" data-target="#" data-placement="bottom" title="Compartir"><span class="glyphicon glyphicon-share" aria-hidden="true" style="float:left;margin-top:12px;margin-left:15px;font-size:16px;color:black;"></span></a>
+
+						 			<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="margin-top:30px;background-color:#EFEFEF;">
+					                    <li role="presentation"><a class="titulo-bus" role="menuitem" tabindex="-1" href="http://www.facebook.com/sharer.php?u=Pastie-Sesion.html" target="_blank" onMouseOver="this.style.cssText='color: #FF9E00'" onMouseOut="this.style.cssText='color: #004E89'" style="color:#004E89;">Facebook<img src="css/img/fb6.png" width="30px" height="30px" style="position:absolute;float:right;margin-left:7px;margin-top:-1px;"></a></li>
+					                    <li role="presentation" class="divider"></li>
+					                    <li role="presentation"><a class="titulo-bus" role="menuitem" tabindex="-1" href="http://twitter.com/home?status=Pastie-Sesion.html" target="_blank" onMouseOver="this.style.cssText='color: #FF9E00'" onMouseOut="this.style.cssText='color: #004E89'" style="color:#004E89;">Twitter<img src="css/img/tw.ico" width="30px" height="30px" style="position:absolute;float:right;margin-left:13px;margin-top:-1px;"></a></li>
+			  						</ul>
+			  					</div>
+	                			
+	                			<p style="float:right;margin-top:8px;margin-right:2px;font-weight:bold;">Hace 45 min.</p>
+	                			
+	                			<p class="titulo-op" style="float:center;margin-left:110px;margin-top:5px;">ZAPATOS</p>
+	                		</div>
+	                	</div>
+
+	                	<div class="row">
+	                		<div class="col-lg-12 col-sm-12 col-xs-12 col-md-12 pastie-body">
+		                		<img src="css/img/messi-blk-red-img12.jpg" width="200" height="150" style="float:right;margin-top:8px;margin-bottom:10px;">
+		                		<p style="float:left;margin-top:5px;">
+									ADIDAS MESSI 15.1 "BLACK/SOLAR GREEN/RED"<br>
+									Precio: 5.000 BsF.<br>
+								</p>
+								<br><br><br><br><br><br>
+								<button onclick="pasarMonto(1,'zapatos')" style="float:left;">Comprar</button>
+		                	</div>
+		                </div>
+
+	            		<div class="row">
+	            			<div class="col-lg-12 col-sm-12 col-xs-12 col-md-12 pastie-footer">
+	            				<p style="text-align:center;"> <a href=""> #Zapatos </a><a href=""> #Messi</a><a href=""> #Adidas</a><a href=""> #Caros</a></p>
+	            			</div>
+	            		</div>
+	            	</div>
+				
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="pastie_audifonos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+
+					<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+
+	                	<div class="row">
+	                		<div class="col-lg-12 col-sm-12 col-xs-12 col-md-12 pastie-head">
+	                			<button type="button" class="close" data-dismiss="modal" style="margin-top:5px;margin-right:-3px;"><span aria-hidden="true">&times;</span><span class="sr-only">Cancelar</span></button>
+	                			
+	                			<a href="#" onclick="agregar('audifonos')"><img src="css/img/carrito.png" width="30" height="30" style="float:left;margin-bottom:5px;margin-top:5px;margin-left:10px;"></a>
+	                			
+								<div class="dropdown">
+						 			<a id="dLabel" href="#" role="button" data-toggle="dropdown" class="dropdown-toggle" data-target="#" data-placement="bottom" title="Compartir"><span class="glyphicon glyphicon-share" aria-hidden="true" style="float:left;margin-top:12px;margin-left:15px;font-size:16px;color:black;"></span></a>
+
+						 			<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="margin-top:30px;background-color:#EFEFEF;">
+					                    <li role="presentation"><a class="titulo-bus" role="menuitem" tabindex="-1" href="http://www.facebook.com/sharer.php?u=Pastie-Sesion.html" target="_blank" onMouseOver="this.style.cssText='color: #FF9E00'" onMouseOut="this.style.cssText='color: #004E89'" style="color:#004E89;">Facebook<img src="css/img/fb6.png" width="30px" height="30px" style="position:absolute;float:right;margin-left:7px;margin-top:-1px;"></a></li>
+					                    <li role="presentation" class="divider"></li>
+					                    <li role="presentation"><a class="titulo-bus" role="menuitem" tabindex="-1" href="http://twitter.com/home?status=Pastie-Sesion.html" target="_blank" onMouseOver="this.style.cssText='color: #FF9E00'" onMouseOut="this.style.cssText='color: #004E89'" style="color:#004E89;">Twitter<img src="css/img/tw.ico" width="30px" height="30px" style="position:absolute;float:right;margin-left:13px;margin-top:-1px;"></a></li>
+			  						</ul>
+			  					</div>
+	                			
+	                			<p style="float:right;margin-top:4px;margin-right:2px;font-weight:bold;">Hace 23 min.</p>
+	                			
+	                			<p class="titulo-op" style="float:center;margin-left:110px;">AUDIFONOS</p>
+	                		</div>
+	                	</div>
+
+	                	<div class="row">
+	                		<div class="col-lg-12 col-sm-12 col-xs-12 col-md-12 pastie-body">
+		                		<img src="css/img/beats-e1399854433609.png" width="200" height="150" style="float:right;margin-top:8px;margin-bottom:10px;">
+		                		<p style="float:left;margin-top:5px;">
+									AUDIFONOS BEATS ROJO<br>
+									Precio: 2.000 BsF.<br>
+								</p>
+								<br><br><br><br><br><br>
+								<button onclick="pasarMonto(1,'audifonos')" style="float:left;">Comprar</button>
+		                	</div>
+		                </div>
+
+	            		<div class="row">
+	            			<div class="col-lg-12 col-sm-12 col-xs-12 col-md-12 pastie-footer">
+	            				<p style="text-align:center;"> <a href=""> #Audifonos </a><a href=""> #Beats</a><a href=""> #Rojos</a><a href=""> #Caros</a></p>
+	            			</div>
+	            		</div>
+	            	</div>
+				
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="pastie_camiseta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+
+					<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+
+	                	<div class="row">
+	                		<div class="col-lg-12 col-sm-12 col-xs-12 col-md-12 pastie-head">
+	                			<button type="button" class="close" data-dismiss="modal" style="margin-top:5px;margin-right:-3px;"><span aria-hidden="true">&times;</span><span class="sr-only">Cancelar</span></button>
+	                			
+	                			<a href="#" onclick="agregar('camiseta')"><img src="css/img/carrito.png" width="30" height="30" style="float:left;margin-bottom:5px;margin-top:5px;margin-left:10px;"></a>
+	                			
+								<div class="dropdown">
+						 			<a id="dLabel" href="#" role="button" data-toggle="dropdown" class="dropdown-toggle" data-target="#" data-placement="bottom" title="Compartir"><span class="glyphicon glyphicon-share" aria-hidden="true" style="float:left;margin-top:12px;margin-left:15px;font-size:16px;color:black;"></span></a>
+
+						 			<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="margin-top:30px;background-color:#EFEFEF;">
+					                    <li role="presentation"><a class="titulo-bus" role="menuitem" tabindex="-1" href="http://www.facebook.com/sharer.php?u=Pastie-Sesion.html" target="_blank" onMouseOver="this.style.cssText='color: #FF9E00'" onMouseOut="this.style.cssText='color: #004E89'" style="color:#004E89;">Facebook<img src="css/img/fb6.png" width="30px" height="30px" style="position:absolute;float:right;margin-left:7px;margin-top:-1px;"></a></li>
+					                    <li role="presentation" class="divider"></li>
+					                    <li role="presentation"><a class="titulo-bus" role="menuitem" tabindex="-1" href="http://twitter.com/home?status=Pastie-Sesion.html" target="_blank" onMouseOver="this.style.cssText='color: #FF9E00'" onMouseOut="this.style.cssText='color: #004E89'" style="color:#004E89;">Twitter<img src="css/img/tw.ico" width="30px" height="30px" style="position:absolute;float:right;margin-left:13px;margin-top:-1px;"></a></li>
+			  						</ul>
+			  					</div>
+	                			
+	                			<p style="float:right;margin-top:4px;margin-right:2px;font-weight:bold;">Hace 2 min.</p>
+	                			
+	                			<p class="titulo-op" style="float:center;margin-left:110px;">CAMISETA</p>
+	                		</div>
+	                	</div>
+
+	                	<div class="row">
+	                		<div class="col-lg-12 col-sm-12 col-xs-12 col-md-12 pastie-body">
+		                		<img src="css/img/6fa5b3a493e44320b9932d807e9ddae5.jpg" width="200" height="150" style="float:right;margin-top:8px;margin-bottom:10px;">
+		                		<p style="float:left;margin-top:5px;">
+									CAMISETA FVF VINOTINTO<br>
+									Precio: 1.000 BsF.<br>
+								</p>
+								<br><br><br><br><br><br>
+								<button onclick="pasarMonto(1,'camiseta')" style="float:left;">Comprar</button>
+		                	</div>
+		                </div>
+
+	            		<div class="row">
+	            			<div class="col-lg-12 col-sm-12 col-xs-12 col-md-12 pastie-footer">
+	            				<p style="text-align:center;"> <a href=""> #Camiseta </a><a href=""> #Vinotinto</a><a href=""> #Venezuela</a><a href=""> #Caros</a></p>
+	            			</div>
+	            		</div>
+	            	</div>
+				
+				</div>
+			</div>
+		</div>	
+
+	</header>
+
+	<body class="fondo">
+		<img id="bg" src="css/img/fondo8.jpeg"  alt="background" />	
+
+		<div class="container3 opciones">
+			<div class="row recuadro col-lg-12 col-xs-12 col-sm-12 col-md-12">
+	            <div class="pastie-contenedor neutro-container">	
+	                <div class="pastie-head">
+	                	<p class="titulo-op">ORDENAR</p>
+	                </div>
+
+	          	 	<div class="pastie-body" align="center">
+	          	 		<div>
+	          	 			<li class="lista"><a href="">Por fecha</a></li>
+	          	 			<li class="lista"><a href="">Por titulo</a></li>
+	          	 			<li class="lista"><a href="">Por Categor&iacute;a</a></li>
+	          	 		</div>
+		            </div>
+	              	
+	              	<div class="pastie-head up">
+	                	<p class="titulo-op">CATEGORIAS</p>
+	                </div>
+
+	          	 	<div class="pastie-body down" align="center">
+		               	<div>
+		               		<li class="lista"><a href="">Accesorios</a></li>
+	          	 			<li class="lista"><a href="">Tecnolog&iacute;a</a></li>
+	          	 			<li class="lista"><a href="">Ropa</a></li>
+	          	 			<li class="lista"><a href="">Calzado</a></li>
+	          	 			<li class="lista"><a href="">Comida</a></li>
+	          	 			<li class="lista"><a href="">Entretenimiento</a></li>
+	          	 			<li class="lista"><a href="">Animales</a></li>
+	          	 			<li class="lista"><a href="">Beb&eacute;s</a></li>
+	          	 			<li class="lista"><a href="">Hogar</a></li>
+	          	 			<li class="lista"><a href="">Juegos</a></li>
+	          	 			<li class="lista"><a href="">Deportes</a></li>
+	          	 			<li class="lista"><a href="">Otros</a></li>
+		            	</div>
+		            </div>
+
+	           	</div>
+        	</div>
+        </div>		
+
+		<div class="container2" id="cont-pastie">
+
+         	<div class="row" id="pastie1">
+            	<a class="col-lg-12 col-md-12 col-xs-12 col-sm-12 recuadro pasties" href="#" style="text-decoration:none;color:black;" data-toggle="modal" data-target="#pastie_zapatos">
+	                <div class="pastie-contenedor">	
+	                	<div class="row">
+	                		<div class="col-lg-12 col-sm-12 col-xs-12 col-md-12 pastie-head">
+	                			<img src="css/img/carrito.png" width="30" height="30" style="float:left;margin-bottom:5px;margin-top:5px;margin-left:10px;">
+	                			<p style="float:right;margin-top:10px;">Hace 45 min.</p>
+	                			<p class="titulo-op" style="float:center;margin-left:70px;margin-top:5px;">ZAPATOS</p>
+	                		</div>
+	                	</div>
+
+						<div class="row">
+							<div class="col-lg-12 col-sm-12 col-xs-12 col-md-12 pastie-body">
+								<img src="css/img/messi-blk-red-img12.jpg" width="200" height="150" style="float:right;margin-top:8px;margin-bottom:10px;">
+								<p style="float:left;margin-top:5px;">
+									ADIDAS MESSI 15.1 "BLACK/SOLAR GREEN/RED"<br>
+									Precio: 5.000 BsF.<br>
+								</p>
+								<br><br><br><br><br><br>
+								<button style="float:left;">Comprar</button>
+							</div>
+						</div>
+
+	            		<div class="row">
+	            			<div class="col-lg-12 col-sm-12 col-xs-12 col-md-12 pastie-footer">
+	            				<p style="text-align:center;color:#337AB7;">#Zapatos #Messi #Adidas #Caros</p>
+	            			</div>
+	            		</div>
+	            	</div>
+	            </a>
+        	</div>
+
+			<div class="row" id="pastie2">
+            	<a class="col-lg-12 col-md-12 col-xs-12 col-sm-12 recuadro pasties" href="#" style="text-decoration:none;color:black;" data-toggle="modal" data-target="#pastie_audifonos">
+	                <div class="pastie-contenedor">	
+	                	<div class="row">
+	                		<div class="col-lg-12 col-sm-12 col-xs-12 col-md-12 pastie-head">
+	                			<img src="css/img/carrito.png" width="30" height="30" style="float:left;margin-bottom:5px;margin-top:5px;margin-left:10px;">
+	                			<p style="float:right;margin-top:4px;">Hace 23 min.</p>
+	                			<p class="titulo-op" style="float:center;margin-left:70px;">AUDIFONOS</p>
+	                		</div>
+	                	</div>
+
+						<div class="row">
+							<div class="col-lg-12 col-sm-12 col-xs-12 col-md-12 pastie-body">
+								<img src="css/img/beats-e1399854433609.png" width="200" height="150" style="float:right;margin-top:8px;margin-bottom:10px;">
+								<p style="float:left;margin-top:5px;">
+									AUDIFONOS BEATS ROJO<br>
+									Precio: 2.000 BsF.<br>
+								</p>
+								<br><br><br><br><br><br>
+								<button style="float:left;">Comprar</button>
+							</div>
+						</div>
+
+	            		<div class="row">
+	            			<div class="col-lg-12 col-sm-12 col-xs-12 col-md-12 pastie-footer">
+	            				<p style="text-align:center;color:#337AB7;">#Audifonos #Beats #Rojos #Caros</p>
+	            			</div>
+	            		</div>
+	            	</div>
+	            </a>
+        	</div>
+
+			<div class="row" id="pastie3">
+            	<a class="col-lg-12 col-md-12 col-xs-12 col-sm-12 recuadro pasties" href="#" style="text-decoration:none;color:black;" data-toggle="modal" data-target="#pastie_camiseta">
+	                <div class="pastie-contenedor">	
+	                	<div class="row">
+	                		<div class="col-lg-12 col-sm-12 col-xs-12 col-md-12 pastie-head">
+	                			<img src="css/img/carrito.png" width="30" height="30" style="float:left;margin-bottom:5px;margin-top:5px;margin-left:10px;">
+	                			<p style="float:right;margin-top:4px;">Hace 2 min.</p>
+	                			<p class="titulo-op" style="float:center;margin-left:70px;">CAMISETA</p>
+	                		</div>
+	                	</div>
+
+						<div class="row">
+							<div class="col-lg-12 col-sm-12 col-xs-12 col-md-12 pastie-body">
+								<img src="css/img/6fa5b3a493e44320b9932d807e9ddae5.jpg" width="200" height="150" style="float:right;margin-top:8px;margin-bottom:10px;">
+								<p style="float:left;margin-top:5px;">
+									CAMISETA FVF VINOTINTO<br>
+									Precio: 1.000 BsF.<br>
+								</p>
+								<br><br><br><br><br><br>
+								<button style="float:left;">Comprar</button>
+							</div>
+						</div>
+
+	            		<div class="row">
+	            			<div class="col-lg-12 col-sm-12 col-xs-12 col-md-12 pastie-footer">
+	            				<p style="text-align:center;color:#337AB7;">#Camiseta #Vinotinto #Venezuela #Caros</p>
+	            			</div>
+	            		</div>
+	            	</div>
+	            </a>
+        	</div>
+
+    	</div>
+
 	</body>
+	<br><br>
+<!--
+	<footer>
+		<a href="#" onclick="feed()" style="text-decoration:none;color:#F1D900;">
+			<div class="container">
+				<div class="row naranja" align="middle">
+					Cargar M&aacute;s
+				</div>
+			</div>	
+		</a>
+	</footer>
+-->
+	<script type="text/javascript" src="js/action_interfaz.js"></script>	
+	<script type="text/javascript" src="js/bootstrap.js"></script>
+	<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery.slides.min.js"></script>
+
 </html>

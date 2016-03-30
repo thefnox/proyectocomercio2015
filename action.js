@@ -13,11 +13,14 @@ function consultar(){
 	var FECHA_EXP = document.getElementById("FECHA_EXP").value;
 	var MONTO = document.getElementById("MONTO").value;
 	var CI = document.getElementById("CI").value;
+	var URL = "https://proyectocomercio2015-fnox.c9users.io/CEMON.php";
 	
+	
+	alert(FECHA_EXP);
 	document.getElementById("resultado").textContent = "Cargando... Espere un momento por favor";
 
 	var xhttp = new XMLHttpRequest();
-	xhttp.open("GET","https://proyectocomercio2015-fnox.c9users.io/CEMON.php?N_TDC="+N_TDC+"&COD_SEG="+COD_SEG+"&FECHA_EXP="+FECHA_EXP+"&MONTO="+MONTO+"&CI="+CI, true);
+	xhttp.open("GET", URL +"?N_TDC="+N_TDC+"&COD_SEG="+COD_SEG+"&FECHA_EXP="+FECHA_EXP+"&MONTO="+MONTO+"&CI="+CI, true);
   	xhttp.send();
 
 	xhttp.onreadystatechange = function() {

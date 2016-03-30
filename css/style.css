@@ -1,0 +1,216 @@
+@font-face{
+	font-family: 'Whitestone';
+	src: url(Whitestone.otf);
+}
+
+@font-face{
+	font-family: 'Homenaje';
+	src: url(Homenaje-Regular.otf);
+}
+
+body{
+	margin: 0;
+}
+
+option{
+	text-align: center;
+}
+
+.lista{
+	list-style: none;
+}
+
+ol{
+	margin-left: -10px;
+}
+
+.fondo{
+	margin-top: 3.5%;
+}
+
+#bg{
+	position:fixed;
+    top:0;
+    left:0;
+    z-index:-1;
+    width: 100%;
+	height: 100%;
+}
+
+.container-fluid {
+   padding-right: 15px;
+   padding-left: 15px;
+   margin-right: auto;
+   margin-left: auto;
+}
+
+.recuadro{
+	margin-top: 2%;
+	border-radius: 30px;
+	background-color: #004E89;
+}
+
+.recuadro-coll{
+	margin-top: 2%;
+	background-color: #004E89;
+}
+
+.opciones{
+	position: absolute;
+	margin-top: 0.5%;
+}
+
+.dark-blue{
+	color: #013666;
+}
+
+.blue{
+	color: #004E89;
+}
+
+.dark-grey{
+	color: #1c1c1b;
+}
+
+.white{
+	color: white;
+}
+
+.yellow{
+	color: #F1D900;
+}
+
+.black{
+	color: black;
+}
+
+.gris{
+	background-color:  #D5D5D5;
+}
+
+.titulo-bus{
+	font-family: 'Homenaje';
+	font-size: 20;
+	color: black;
+	text-align: center;
+}
+
+.titulo-op{
+	font-family: 'Homenaje';
+	font-size: 22;
+}
+
+.titulo-tag{
+	font-family: 'Homenaje';
+	font-size: 24;	
+}
+
+header{
+	background: #004E89;
+}
+
+.pastie-contenedor{
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.pasties:hover{
+	background-color: #57B7FF;
+}
+
+.neutro-container{
+	margin-bottom: -5px;
+	margin-left: -10px;
+	margin-right: -10px;
+}
+
+.pastie-head{
+	text-align: center;
+	background-color: #D5D5D5;
+	border-top-left-radius: 25px;
+	border-top-right-radius: 25px;
+	height: 40px;
+}
+
+.pastie-body{
+	background-color: #fff;
+}
+
+.pastie-footer{
+	margin-top: 1px;
+	background-color: #fff;
+	border-bottom-left-radius: 25px;
+	border-bottom-right-radius: 25px;
+}
+
+.up{
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
+	margin-top: 1px;
+}
+
+.down{
+	border-bottom-right-radius: 25px;
+	border-bottom-left-radius: 25px;
+	margin-bottom: 10px;	
+}
+
+.pastie-head-coll{
+	text-align: center;
+	background-color: #D5D5D5;
+	height: 30px;
+}
+
+.pastie-footer-coll{
+	margin-top: 1px;
+	background-color: #fff;
+}
+
+.star-hidden{
+	float:right;
+	margin-top:3px;
+	margin-right:7px;
+}
+
+.boton-crear{
+	border-bottom-right-radius: 25px;
+	border-bottom-left-radius: 25px;
+	background-color: #D5D5D5;
+	border-color: #D5D5D5;
+}
+
+textarea {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+
+	width: 100%;
+}
+
+footer{
+	margin-top: 20px;
+	background-color: #004E89;
+	color: #F1D900;
+	font-family: 'Homenaje';
+	font-size: 20px;
+}
+
+
+.azul-oscuro:hover{
+	background-color: #003259;
+}
+
+ul:hover > a.naranja{
+	color: #FF9E00;
+}
+
+.naranja:hover{
+	color: #FF9E00;
+}
+
+footer:hover{
+	background-color: #003259;
+	color: #FF9E00;
+}

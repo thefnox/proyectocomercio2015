@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+		<script type="text/javascript" src="action.js"></script>
+		<title>CEMON</title>
+	</head>
+
+	<style>
+		#bg{
+			position:fixed;
+		    top:0;
+		    left:0;
+		    margin: 0;
+		    padding: 0;
+    		z-index:-20;
+    		width: 100%;
+    		height: 100%;
+		}
+
+		.contenedor{
+			background-color: #F1E6D2;
+			width: 50%;
+			height: 50%;
+			border-radius: 5px;
+		}
+	</style>
+
+	<body>
+		<img id="bg" src="http://www.liocreativo.com/wp-content/uploads/2014/03/fondo-11.jpg" alt="background" />
+		
+		<h1 style="text-align:center;">CEMON: Fernando, Fidel, Johan</h1>
+
+		<div align="center">
+			<div class="contenedor">
+				<br>
+				<h2>BOTON DE PAGO</h2>
+				<br>
+				
+				<label>N* TDC</label>
+				&nbsp;
+				<input id="N_TDC" type="text">
+				<br><br>
+				
+				<label>COD SEG</label>
+				&nbsp;
+				<input id="COD_SEG" type="number"/>
+				<br><br>
+				
+				<label>Fecha EXP</label>
+				&nbsp;
+				<input type="month" id="FECHA_EXP" name="fecha de vencimiento"/>
+				<br><br>
+				
+				<label>MONTO</label>
+				&nbsp;
+				<input id="MONTO" type="number"/>
+				<br><br>
+				
+				<label>CI</label>
+				&nbsp;
+				<input id="CI" type="text"/>
+				<br><br>
+				
+				<br><br>
+				<button onclick="consultar()">PAGAR</button>
+				<br><br>
+				<label>Resultado: </label>
+				<p id="resultado"></p>
+				
+				
+				<br>
+				<br>
+			</div>
+		</div>
+	</body>
+</html>

@@ -3,7 +3,7 @@
 	
 	include_once 'lib/nusoap.php';
 	//include_once 'PAGO.php';
-	
+	$URL = 'https://proyectocomercio2015-fnox.c9users.io/PAGOService.php';
 	$N_TDC = $_GET['N_TDC'];
 	$COD_SEG = $_GET['COD_SEG'];
 	$FECHA_EXP = $_GET['FECHA_EXP'];
@@ -14,30 +14,34 @@
 	$PAGO = PAGO($N_TDC, $COD_SEG, $FECHA_EXP, $MONTO, $CI, $COD_TIENDA);
 
 	function PAGO($N_TDC, $COD_SEG, $FECHA_EXP, $MONTO, $CI, $COD_TIENDA){
-		//$cemon = new nusoap_client('https://proyectocomercio2015-fnox.c9users.io/BANCO3_debitar.php?wsdl', false);
-		$cemon = new nusoap_client('https://proyectocomercio2015-fnox.c9users.io/PAGOService.php', false);
-		$req = array('N_TDC' => $N_TDC, 'COD_SEG' => $COD_SEG, 'FECHA_EXP' => $FECHA_EXP, 'MONTO' => $MONTO, 'CI' => $CI, 'COD_TIENDA' => $COD_TIENDA);
-		$res = $cemon->call('PAGO', $req);
+		$cemon = new nusoap_client($URL, false);
+		$req = array('monto' => $MONTO, 'cod_comercio' => $COD_TIENDA, 'tipo_tarjeta' => $N_TDC[0], 'num_tarjeta' => $N_TDC, 'fecha_venc' => $FECHA_EXP, 'cod_seguridad' => $COD_SEG, 'ci_titular' => $CI);
+		$res = $cemon->call('pagar_al_banco', $req);
 		$cemon = null;
 		
 		return $res;
 	}
 	
-	//echo '<'.$PAGO['COD_OPERACION'].'>';
+	//var_dump($PAGO);
 	
-	if($PAGO['COD_OPERACION'] == "00"){
-		echo 'ACEPTADO';
-	}else{
-		if($PAGO['COD_OPERACION'] == "01") echo 'SALDO INSUFICIENTE';
-		else{
-			if($PAGO['COD_OPERACION'] == "10") echo 'DATOS INVALIDOS';
-			else{
-				if($PAGO['COD_OPERACION'] == "99") echo 'SIN CONEXION';
-				else{
-					if($PAGO['COD_OPERACION'] == "11") echo 'TARJETA VENCIDA';
-					else echo 'NEGADA';
-				}
-			}
-		}
+	switch($PAGO){
+		case "00":
+			echo 'ACEPTADO';
+			break;
+		case "01":
+			echo 'SALDO INSUFICIENTE';
+			break;
+		case "10":
+			echo 'DATOS INVALIDOS';
+			break;
+		case "99":
+			echo 'SIN CONEXION';
+			break;
+		case "11":
+		default:
+			echo 'OTROS';
+			break;
+		
 	}
+	
 ?>

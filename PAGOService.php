@@ -9,11 +9,11 @@
 	$servicio->configureWSDL("PAGOService", $ns);
 	$servicio->schemaTargetNamespace = $ns;
 
-	$servicio->register("PAGO", array('N_TDC' => 'xsd:string', 'COD_SEG' => 'xsd:number', 'FECHA_EXP' => 'xsd:string', 'MONTO' => 'xsd:float', 'CI' => 'xsd:string', 'COD_TIENDA' => 'xsd:string'),array('COD_OPERACION' => 'xsd:string', 'N_TRANS' => 'xsd:string'), $ns);
+	$servicio->register("pagar_al_banco", array('monto' => 'xsd:int', 'cod_comercio' => 'xsd:string', 'tipo_tarjeta' => 'xsd:string', 'num_tarjeta' => 'xsd:int', 'fecha_venc' => 'xsd:string', 'cod_seguridad' => 'xsd:int', 'ci_titular' => 'xsd:string'),array('cod_operacion' => 'xsd:string'), $ns);
 
-	function PAGO($N_TDC, $COD_SEG, $FECHA_EXP, $MONTO, $CI, $COD_TIENDA){
-		
-		return hacerPago($N_TDC, $COD_SEG, $FECHA_EXP, $MONTO, $CI, $COD_TIENDA);
+	function pagar_al_banco($MONTO, $COD_TIENDA, $N_TDC_T, $N_TDC, $FECHA_EXP, $COD_SEG, $CI){
+		$pago = hacerPago($MONTO, $COD_TIENDA, $N_TDC_T, $N_TDC, $FECHA_EXP, $COD_SEG, $CI);
+		return $pago;
 	}
 
 	$HTTP_RAW_POST_DATA = isset($HTTP_RAW_POST_DATA) ? $HTTP_RAW_POST_DATA :'';
